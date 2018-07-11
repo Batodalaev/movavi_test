@@ -4,7 +4,7 @@
 #include "Circle.hh"
 #define _USE_MATH_DEFINES //for M_PI
 #include <cmath> 
-
+namespace unit1{
     double Circle::Area(){
         return radius * radius * GetPi();
     }
@@ -28,5 +28,5 @@
     Circle::Circle(){
         radius = 0;
     }
-
+}
 #endif CIRCLE_CPP

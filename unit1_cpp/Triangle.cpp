@@ -3,7 +3,7 @@
 #pragma once
 #include "Triangle.hh"
 #include <cmath>
-
+namespace unit1{
     double Triangle::Area(){
         double p = Perimeter()/2.0;//полупериметр.
         return sqrt(p*(p-sideA)*(p-sideB)*(p-sideC));//формула Герона
@@ -44,4 +44,5 @@
         this->sideB = 0;
         this->sideC = 0;
     }
+}
 #endif TRIANGLE_CPP

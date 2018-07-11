@@ -2,7 +2,7 @@
 #define RECTANGLE_CPP
 #pragma once
 #include "Rectangle.hh"
-
+namespace unit1{
     double Rectangle::Area(){
         return width * height;
     } 
@@ -30,5 +30,5 @@
         width = 0;
         height = 0;
     }
-
+}
 #endif RECTANGLE_CPP
