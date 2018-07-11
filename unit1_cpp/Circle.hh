@@ -2,6 +2,7 @@
 #define CIRCLE_HH
 #pragma once
 #include "IShape.hh"
+#include <stdexcept>
 namespace unit1{
 //Класс, наследник IShape, геометрическая фигура - круг. Хранит 1 поле - радиус.
 class Circle : public IShape
@@ -10,8 +11,8 @@ class Circle : public IShape
         double Area();// return radius * radius * GetPi()
         double GetPi(); // return 3.141592653589793
         double GetRadius();
-        void SetRadius(double radius);
-        Circle(double radius);
+        void SetRadius(double radius) throw(std::invalid_argument);
+        Circle(double radius) throw(std::invalid_argument);
         ~Circle();
     private:
         double radius;

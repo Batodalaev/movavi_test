@@ -16,8 +16,8 @@ Square - class:IShape
  public:
     double Area() // return = side * side
     double GetSide()
-    void SetSide(double side)
-    Square(double side)
+    void SetSide(double side) // if side<0 throw invalid_argument
+    Square(double side)// if side<0 throw invalid_argument
     ~Square()
  private:
     double side
@@ -29,9 +29,9 @@ Rectangle - class:IShape
     double Area() // return = width * height
     double GetWidth()
     double GetHeight()
-    void SetWidth(double width)
-    void SetHeight(double height)
-    Rectangle(double width, double height)
+    void SetWidth(double width)// if width<0 throw invalid_argument
+    void SetHeight(double height)// if height<0 throw invalid_argument
+    Rectangle(double width, double height)// if width<0 or height<0 throw invalid_argument
     ~Rectangle()
  private:
     double width
@@ -44,12 +44,12 @@ Triangle - class:IShape
     double Area() //double p = Perimeter()/2.0  //return sqrt(p*(p-a)*(p-b)*(p-c)) //формула Герона
     double Perimeter() // return sideA+sideB+sideC
     double GetSideA()
-    void SetSideA(double sideA)
+    void SetSideA(double sideA)// if sideA<0 throw invalid_argument
     double GetSideB()
-    void SetSideB(double sideB)
+    void SetSideB(double sideB)// if sideB<0 throw invalid_argument
     double GetSideC()
-    void SetSideC(double sideC)
-    Triangle(double sideA, double sideB, double sideC)
+    void SetSideC(double sideC)// if sideC<0 throw invalid_argument
+    Triangle(double sideA, double sideB, double sideC)// if sideA<0 or sideB<0 or sideC<0 throw invalid_argument
     ~Triangle()
  private:
     double sideA
@@ -63,16 +63,16 @@ Circle - class:IShape
     double Area()// return radius * radius * GetPi()
     double GetPi() // return 3.141592653589793
     double GetRadius()
-    void SetRadius(double radius)
-    Circle(double radius)
+    void SetRadius(double radius)// if radius<0 throw invalid_argument
+    Circle(double radius)// if radius<0 throw invalid_argument
     ~Circle()
  private:
     double radius
     Circle()
 
 
-IShape - готов
-Square - готов
-Rectangle - готов
-Triangle - 
-Circle - 
+IShape - основа
+Square - основа + исключения
+Rectangle - основа + исключения
+Triangle - основа + исключения
+Circle - основа + исключения

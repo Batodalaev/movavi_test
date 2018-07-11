@@ -9,10 +9,14 @@ namespace unit1{
     double Square::GetSide(){
         return side;
     }
-    void Square::SetSide(double side){
+    void Square::SetSide(double side) throw(std::invalid_argument){
+        if(side < 0)
+            throw std::invalid_argument("side must be nonnegative value");
         this->side = side;
     }
-    Square::Square(double side){
+    Square::Square(double side) throw(std::invalid_argument){
+        if(side < 0)
+            throw std::invalid_argument("side must be nonnegative value");
         this->side = side;
     }
     Square::~Square(){

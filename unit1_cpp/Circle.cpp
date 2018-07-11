@@ -9,16 +9,20 @@ namespace unit1{
         return radius * radius * GetPi();
     }
     double Circle::GetPi(){
-        return M_PI;
-        //return 3.14159265358979323846;
+        return 3.14159265358979323846;
+        //return M_PI;
     }
     double Circle::GetRadius(){
         return radius;
     }
-    void Circle::SetRadius(double radius){
+    void Circle::SetRadius(double radius) throw(std::invalid_argument){
+        if(radius < 0)
+            throw std::invalid_argument("radius must be nonnegative value");
         this->radius = radius;
     }
-    Circle::Circle(double radius){
+    Circle::Circle(double radius) throw(std::invalid_argument){
+        if(radius < 0)
+            throw std::invalid_argument("radius must be nonnegative value");
         this->radius = radius;
     }
     Circle::~Circle(){

@@ -14,22 +14,34 @@ namespace unit1{
     double Triangle::GetSideA(){
         return sideA;
     }
-    void Triangle::SetSideA(double sideA){
+    void Triangle::SetSideA(double sideA) throw(std::invalid_argument){
+        if(sideA < 0)
+            throw std::invalid_argument("sideA must be nonnegative value");
         this->sideA = sideA;
     }
     double Triangle::GetSideB(){
         return sideB;
     }
-    void Triangle::SetSideB(double sideB){
+    void Triangle::SetSideB(double sideB) throw(std::invalid_argument){
+        if(sideB < 0)
+            throw std::invalid_argument("sideB must be nonnegative value");
         this->sideB = sideB;
     }
     double Triangle::GetSideC(){
         return sideC;
     }
-    void Triangle::SetSideC(double sideC){
+    void Triangle::SetSideC(double sideC) throw(std::invalid_argument){
+        if(sideC < 0)
+            throw std::invalid_argument("sideC must be nonnegative value");
         this->sideC = sideC;
     }
-    Triangle::Triangle(double sideA, double sideB, double sideC){
+    Triangle::Triangle(double sideA, double sideB, double sideC) throw(std::invalid_argument){
+        if(sideA < 0)
+            throw std::invalid_argument("sideA must be nonnegative value");
+        if(sideB < 0)
+            throw std::invalid_argument("sideB must be nonnegative value");
+        if(sideC < 0)
+            throw std::invalid_argument("sideC must be nonnegative value");
         this->sideA = sideA;
         this->sideB = sideB;
         this->sideC = sideC;
