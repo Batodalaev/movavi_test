@@ -61,11 +61,11 @@ Triangle - class:IShape
 Circle - class:IShape
  public:
     double Area()// return radius * radius * GetPi()
-    double GetPi() // return 3.141592653589793
     double GetRadius()
     void SetRadius(double radius)// if radius<0 throw invalid_argument
     Circle(double radius)// if radius<0 throw invalid_argument
     ~Circle()
+    const double Pi //3.14159265358979323846
  private:
     double radius
     Circle()
@@ -76,3 +76,10 @@ Square - основа + исключения
 Rectangle - основа + исключения
 Triangle - основа + исключения
 Circle - основа + исключения
+
+Этапы создания программы:
+1) +Основа. Интерфейс IShape и классы, что реализуют данный интерфейс. Без проверок на неправильный ввод. Без тестов.
+2) +Исключения. Проверки на неправильный ввод. Без тестов.
+3) -Чек-лист. тестовые наборы, тест-кейсы, виды тестирования.
+4) -Тесты. Авто-тесты. Покрытие тестами кода.
+5) -Документация. Примеры использования.

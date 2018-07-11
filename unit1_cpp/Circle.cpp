@@ -2,16 +2,11 @@
 #define CIRCLE_CPP
 #pragma once
 #include "Circle.hh"
-#define _USE_MATH_DEFINES //for M_PI
-#include <cmath> 
 namespace unit1{
     double Circle::Area(){
-        return radius * radius * GetPi();
+        return radius * radius * Pi;
     }
-    double Circle::GetPi(){
-        return 3.14159265358979323846;
-        //return M_PI;
-    }
+
     double Circle::GetRadius(){
         return radius;
     }
