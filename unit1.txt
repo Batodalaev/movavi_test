@@ -11,11 +11,10 @@ IShape - abstract class
  public:
     abstract double Area() //Расчет площади, каждый наследник реализует его по своему.
 
-
 Класс, наследник IShape, геометрическая фигура - квадрат. Хранит только 1 поле - длина стороны квадрата.
 Square - class:IShape
  public:
-    override double Area() // return = side * side
+    double Area() // return = side * side
     double GetSide()
     void SetSide(double side)
     Square(double side)
@@ -27,7 +26,7 @@ Square - class:IShape
 Класс, наследник IShape, геометрическая фигура - прямоугольник. Хранит 2 поля - ширина и длина прямоугольника.
 Rectangle - class:IShape
  public:
-    override double Area() // return = width * height
+    double Area() // return = width * height
     double GetWidth()
     double GetHeight()
     void SetWidth(double width)
@@ -39,9 +38,10 @@ Rectangle - class:IShape
     double height
     Rectangle()
 
+Класс, наследник IShape, геометрическая фигура - треугольник. Хранит 3 поля - стороны A,B и C.
 Triangle - class:IShape
  public:
-    override double Area() //double p = Perimeter()/2.0  //return sqrt(p*(p-a)*(p-b)*(p-c)) //формула Герона
+    double Area() //double p = Perimeter()/2.0  //return sqrt(p*(p-a)*(p-b)*(p-c)) //формула Герона
     double Perimeter() // return sideA+sideB+sideC
     double GetSideA()
     void SetSideA(double sideA)
@@ -57,9 +57,10 @@ Triangle - class:IShape
     double sideC
     Triangle()
 
+Класс, наследник IShape, геометрическая фигура - круг. Хранит 1 поле - радиус.
 Circle - class:IShape
  public:
-    override double Area()// return radius * radius * GetPi()
+    double Area()// return radius * radius * GetPi()
     double GetPi() // return 3.141592653589793
     double GetRadius()
     void SetRadius(double radius)
@@ -68,3 +69,10 @@ Circle - class:IShape
  private:
     double radius
     Circle()
+
+
+IShape - готов
+Square - готов
+Rectangle - готов
+Triangle - 
+Circle - 
