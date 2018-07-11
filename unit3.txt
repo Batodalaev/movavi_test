@@ -23,12 +23,3 @@
             //erase-remove idiom
             v.erase( std::remove( i+1, v.end(), *i ), v.end() ); //Удаление всех дубликатов
     }
-
-    /*//Код не протестирован, был заменен erase-remove idiom
-    for (std::vector<T>::iterator j = i+1 ; j != v.end(); ++j){
-        if(*i==*j){
-            //Если дубликат найден
-            str.erase(j);
-        }
-    };
-    */
