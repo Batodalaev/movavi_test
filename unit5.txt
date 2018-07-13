@@ -23,3 +23,33 @@
 
 
 
+Основная идея:
+Widget - класс, наследник QWidget.
+    vector<PyramidImage*> pyramidImages;//Список картинок
+
+    bool CreatePyramidImages(int argc, char*[] argv);//Список названий файлов - картинок, что нужно загрузить. 
+    //Если какой-нибудь файл не получится загрузить, то выдать ошибку и отменить весь прогресс.
+    bool AddImage(QImage* image);
+    bool RemoveImage(QImage* image);
+    bool AddImageRange(vector<QImage*>& images)
+    bool Clear();
+
+PyramidImage - класс, который получает на вход картинку и создает набор изображений n/2, n/4 и т.д.
+    String filename; 
+    vector<QImage*> images;//0-оригинальный, 1..m - уменьшенные копии. length == m+1
+    float coefficient;//Коэффициент уменьшения слоя.
+
+
+    void SetOriginalImage(QImage& original, String filename);
+    String& GetFileName();
+    void GenerateCopiedImages();
+    int CountCopies();// return m
+    QImage& GetCopiedImage(int i);//i - 1..m
+    int GetWidthImage(int i)//i - 0..m
+    int GetHeightImage(int i);//i - 0..m
+
+    QImage& GenerateCopiedImageWithNoSave(int i);//i - 1..m
+    void SetCoefficient(float coefficient);
+    float GetCoefficient();
+
+
