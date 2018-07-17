@@ -1,0 +1,56 @@
+# C++ objects and libs
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+object_script.*.Release
+object_script.*.Debug
+*_plugin_import.cpp
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+Makefile*
+*build-*
+
+# Qt unit tests
+target_wrapper.*
+
+# QtCreator
+*.autosave
+
+# QtCreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# QtCreator CMake
+CMakeLists.txt.user*
+
+# Qt build
+*.obj
+*.exe
+
+unit5_qt/build-unit5_qt-Desktop_Qt_5_11_1_MinGW_32bit-Debug/
+unit5_qt/build-unit5_qt-Desktop_Qt_5_11_1_MSVC2015_32bit-Debug/
+unit5_qt/unit5_qt/.qmake.stash
+unit5_qt/unit5_qt/debug/unit5_qt.ilk
+unit5_qt/unit5_qt/debug/unit5_qt.pdb
+unit5_qt/unit5_qt/debug/unit5_qt.vc.pdb
+unit5_qt/unit5_qt/debug/.vs/unit5_qt/v15/.suo
+unit5_qt/unit5_qt/debug/.vs/unit5_qt/v15/Browse.VC.db

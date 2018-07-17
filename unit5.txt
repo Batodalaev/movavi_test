@@ -25,31 +25,52 @@
 
 Основная идея:
 Widget - класс, наследник QWidget.
-    vector<PyramidImage*> pyramidImages;//Список картинок
+    QList<PyramidImage*> pyramidImages;//Список картинок
 
     bool CreatePyramidImages(int argc, char*[] argv);//Список названий файлов - картинок, что нужно загрузить. 
     //Если какой-нибудь файл не получится загрузить, то выдать ошибку и отменить весь прогресс.
-    bool AddImage(QImage* image);
-    bool RemoveImage(QImage* image);
-    bool AddImageRange(vector<QImage*>& images)
+    bool AddImage(QPixMap* image);
+    bool RemoveImage(QPixMap* image);
+    bool AddImageRange(QVector<QPixMap*>& images);
     bool Clear();
+
+slots:
+    void setCurrentIndexImage(int index);
+    void setCurrentIndexLayer(int index);
+    void setCoefficient(double coefficient);
+signals:
+    void labelSizeChanged(QString text);
+    void labelImageChanged(QPixmap image);
+    void comboBoxImageEnable(bool enable);
+
+    QList<PyramidImage*> images;
+    int currentIndexImage;
+    int currentIndexLayer;
+    static bool cmp(const QPixmap &a, const QPixmap &b);
+    static QString labelSize(QSize& size);
 
 PyramidImage - класс, который получает на вход картинку и создает набор изображений n/2, n/4 и т.д.
     String filename; 
-    vector<QImage*> images;//0-оригинальный, 1..m - уменьшенные копии. length == m+1
+    QVector<QPixMap*> images;//0-оригинальный, 1..m - уменьшенные копии. length == m+1
     float coefficient;//Коэффициент уменьшения слоя.
 
 
-    void SetOriginalImage(QImage& original, String filename);
+    void SetOriginalImage(QPixMap* original, String filename);
     String& GetFileName();
     void GenerateCopiedImages();
     int CountCopies();// return m
-    QImage& GetCopiedImage(int i);//i - 1..m
-    int GetWidthImage(int i)//i - 0..m
+    QPixMap* GetImage(int i);//i - 0..m
+    int GetWidthImage(int i);//i - 0..m
     int GetHeightImage(int i);//i - 0..m
+    QSize* GetSize(int i);
 
-    QImage& GenerateCopiedImageWithNoSave(int i);//i - 1..m
-    void SetCoefficient(float coefficient);
+    QPixMap* GenerateCopiedImageWithNoSave(int i);//i - 1..m
+    void SetCoefficient(float coefficient);//coefficient>1
     float GetCoefficient();
 
+    void clearGeneratedCopies();
+
+    static int maxCopies(QSize* size);
+    static double log(double x, double base);
+    const float coefficient_default = 2.0f;
 
