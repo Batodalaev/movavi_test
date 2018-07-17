@@ -35,5 +35,4 @@ HEADERS += \
 FORMS += \
         widget.ui
 
-DISTFILES += \
-    .gitignore
+DISTFILES +=

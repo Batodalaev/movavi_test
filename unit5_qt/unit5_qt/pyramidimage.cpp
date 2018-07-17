@@ -64,13 +64,8 @@ int PyramidImage::GetWidthImage(int i)
 {
     //any image
     if(i>=0 && i<=CountCopies()){
-        if(images[i]!=nullptr){
-            return images[i]->width();
-        }
-        else{
-            double temp = pow(coefficient,i);
-            return (int)(images[0]->width()/temp);
-        }
+        double temp = pow(coefficient,i);
+        return (int)(images[0]->width()/temp);
     }
     return 0;
 }
@@ -79,13 +74,8 @@ int PyramidImage::GetHeightImage(int i)
 {
     //any image
     if(i>=0 && i<=CountCopies()){
-        if(images[i]!=nullptr){
-            return images[i]->height();
-        }
-        else{
-            double temp = pow(coefficient,i);
-            return (int)(images[0]->height()/temp);
-        }
+        double temp = pow(coefficient,i);
+        return (int)(images[0]->height()/temp);
     }
     return 0;
 }

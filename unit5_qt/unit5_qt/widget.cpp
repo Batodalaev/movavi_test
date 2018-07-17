@@ -84,7 +84,7 @@ void Widget::setCurrentIndexLayer(int index)
         QPixmap* layer = images[currentIndexImage]->
                 GetImage(currentIndexLayer);
 
-        labelSizeChanged(labelSize(layer->size()));
+        labelSizeChanged(labelSize(*(images[currentIndexImage]->GetSize(index))));
         labelImageChanged(*layer);
     }
 }
