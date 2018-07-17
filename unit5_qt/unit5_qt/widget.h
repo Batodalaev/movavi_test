@@ -2,8 +2,10 @@
 #define WIDGET_H
 #include <QList>
 #include <QWidget>
+#include <QComboBox>
 #include <QPixmap>
 #include <QMenuBar>
+#include <QDoubleSpinBox>
 
 #include <QFileDialog>
 #include <QMessageBox>
@@ -25,7 +27,7 @@ public:
      * Если какой-нибудь файл не получится загрузить,
      * то выдать ошибку и отменить весь прогресс.
      */
-    bool CreatePyramidImages(QVector<QString> filenames);
+    bool CreatePyramidImages(QStringList filenames);
     //Загрузка 1 картинки
     bool CreatePyramidImage(QString& filename);
     void AddImage(QPixmap* image, QString& filename);
@@ -38,7 +40,8 @@ public slots:
     void setCurrentIndexLayer(int index);
     void setCoefficient(double coefficient);
 
-    void openFile();
+    void openFiles();
+    void closeFiles();
     void about();
 
 signals:
@@ -60,10 +63,12 @@ private:
     void createMenus();
     double getCurrentCoefficient();
 
+    void updateComboBoxLayer();
     QMenu *fileMenu;
     QMenu *helpMenu;
 
     QAction *openAct;
+    QAction *closeAct;
     QAction *aboutAct;
     QAction *aboutQtAct;
     QAction *exitAct;

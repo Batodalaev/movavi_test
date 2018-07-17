@@ -21,19 +21,55 @@ Widget::~Widget()
     delete ui;
 }
 
+bool Widget::CreatePyramidImages(QStringList filenames)
+{
+    for(int i=0;i<filenames.length();i++)
+    {
+        //проверка на доступность
+        QFile file(filenames.at(i));
+        if (!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(this, tr("&Unable to open file"),
+                file.errorString());
+            return false;
+        }
+    }
+    for(int i=0;i<filenames.length();i++)
+    {
+        QPixmap* pm = new QPixmap();
+        pm->load(filenames.at(i));
+        if(!pm->isNull()){
+            AddImage(pm,filenames[i]);
+
+        }
+    }
+    std::sort(images.begin(),images.end(),cmp);
+    setCurrentIndexImage(0);
+    ui->comboBoxImage->clear();
+    ui->comboBoxImage->setMaxVisibleItems(images.length());
+    ui->comboBoxImage->addItems(filenames);
+
+    comboBoxImageEnable(true);
+    return true;
+}
+
+//obsolete
 bool Widget::CreatePyramidImage(QString &filename)
 {
+    //проверка на доступность
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(this, tr("&Unable to open file"),
             file.errorString());
         return false;
     }
+
     QPixmap* pm = new QPixmap();
     pm->load(filename);
-
     if(!pm->isNull()){
         AddImage(pm,filename);
+        std::sort(images.begin(),images.end(),cmp);
+        setCurrentIndexImage(0);
+        comboBoxImageEnable(true);
     }
     return pm->isNull();
 
@@ -41,16 +77,10 @@ bool Widget::CreatePyramidImage(QString &filename)
 
 void Widget::AddImage(QPixmap *image, QString& filename)
 {
-    images.append(new PyramidImage(
+    images.push_back(new PyramidImage(
                       filename, image, getCurrentCoefficient()));
 
-    std::sort(images.begin(),images.end(),cmp);
-
     labelSizeChanged(filename);
-
-    setCurrentIndexImage(0);
-
-    comboBoxImageEnable(true);
 }
 
 void Widget::RemoveImage(int index)
@@ -65,20 +95,20 @@ void Widget::Clear()
 
 void Widget::setCurrentIndexImage(int index)
 {
-    if(images.count()>0)
+    if(images.count()>0 && index>=0)
     {
         currentIndexImage = index;
         setCoefficient(images[currentIndexImage]->GetCoefficient());
         ui->doubleSpinBoxCoefficient->setValue(
                 images[currentIndexImage]->GetCoefficient());
-        setCurrentIndexLayer(0);
-        ui->comboBoxLayer->setCurrentIndex(0);
+        updateComboBoxLayer();
+
     }
 }
 
 void Widget::setCurrentIndexLayer(int index)
 {
-    if(images.count()>0)
+    if(images.count()>0 && images[currentIndexImage]->CountCopies()>0 && index>=0)
     {
         currentIndexLayer = index;
         QPixmap* layer = images[currentIndexImage]->
@@ -91,25 +121,41 @@ void Widget::setCurrentIndexLayer(int index)
 
 void Widget::setCoefficient(double coefficient)
 {
-    if(images.count()>0)
+    if(images.count()>0 && coefficient>1.0)
     {
         setCurrentIndexLayer(0);
-        ui->comboBoxLayer->setCurrentIndex(0);
-
         images[currentIndexImage]->SetCoefficient(coefficient);
+
+        updateComboBoxLayer();
+    }
+    else{
+        ui->doubleSpinBoxCoefficient->setValue(2.0);
     }
 }
 
-void Widget::openFile()
+void Widget::openFiles()
 {
-    QString filename = QFileDialog::getOpenFileName(this,
-            tr("&Open image file"), "",
-            tr("&Images (*.BMP, *.GIF, *.JPG, *.JPEG, *.PNG);"));
+    QStringList filenames =
+            QFileDialog::
+            getOpenFileNames(this,
+                             tr("Open image files"), "",
+                             tr("&Images (*.BMP *.GIF *.JPG *.JPEG *.PNG);"));
 
-    if (filename.isEmpty())
+    if (filenames.isEmpty())
             return;
     else {
-        CreatePyramidImage(filename);
+        CreatePyramidImages(filenames);
+    }
+}
+
+void Widget::closeFiles()
+{
+    if(images.count()>0)
+    {
+        Clear();
+        labelSizeChanged(labelSize(*(new QSize(0,0))));
+        labelImageChanged(*(new QPixmap()));
+        comboBoxImageEnable(false);
     }
 }
 
@@ -138,9 +184,13 @@ QString Widget::labelSize(QSize size)
 
 void Widget::createActions()
 {
-    openAct = new QAction(tr("&Open File"),this);
-    openAct->setStatusTip(tr("&Open a file"));
-    connect(openAct, &QAction::triggered, this, &Widget::openFile);
+    openAct = new QAction(tr("&Open Files"),this);
+    openAct->setStatusTip(tr("&Open files"));
+    connect(openAct, &QAction::triggered, this, &Widget::openFiles);
+
+    closeAct = new QAction(tr("&Close Files"),this);
+    closeAct->setStatusTip(tr("&Close files"));
+    connect(closeAct, &QAction::triggered, this, &Widget::closeFiles);
 
     exitAct = new QAction(tr("&Exit"),this);
     exitAct->setStatusTip(tr("&Exit the application"));
@@ -160,6 +210,7 @@ void Widget::createMenus()
 {
     fileMenu = menuBar->addMenu(tr("&File"));
     fileMenu->addAction(openAct);
+    fileMenu->addAction(closeAct);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAct);
 
@@ -171,4 +222,15 @@ void Widget::createMenus()
 double Widget::getCurrentCoefficient()
 {
     return ui->doubleSpinBoxCoefficient->value();
+}
+
+void Widget::updateComboBoxLayer()
+{
+    setCurrentIndexLayer(0);
+    ui->comboBoxLayer->setCurrentIndex(0);
+    ui->comboBoxLayer->clear();
+    ui->comboBoxImage->setMaxVisibleItems(images[currentIndexImage]->CountCopies()+1);
+    for(int i=0;i<images[currentIndexImage]->CountCopies();i++){
+        ui->comboBoxLayer->addItem(QString::number(i));
+    }
 }
