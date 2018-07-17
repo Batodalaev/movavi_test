@@ -103,6 +103,11 @@ void Widget::setCurrentIndexImage(int index)
                 images[currentIndexImage]->GetCoefficient());
         updateComboBoxLayer();
 
+        ui->scrollAreaWidgetContents->setGeometry(0,0,
+                                                  images[currentIndexImage]->GetWidthImage(0),
+                                                  images[currentIndexImage]->GetHeightImage(0)
+                                                  );
+        ui->scrollArea->setWidget(ui->scrollAreaWidgetContents);
     }
 }
 
