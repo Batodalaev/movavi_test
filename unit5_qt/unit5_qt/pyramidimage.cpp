@@ -137,12 +137,13 @@ float PyramidImage::GetCoefficient()
 
 void PyramidImage::clearGeneratedCopies()
 {
-    for(int i=0;i<images.size();i++)
+    //remove only copies
+    for(int i = 1;i<images.size();i++)
     {
         if(images[i]!=nullptr)
         {
             images[i]->~QPixmap();
-            images.insert(i,nullptr);
+            images.replace(i,nullptr);
         }
     }
 }
